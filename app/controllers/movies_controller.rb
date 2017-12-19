@@ -13,10 +13,13 @@ class MoviesController < ApplicationController
   end
 
   def create
-    movie_params = params.require(:movie).permit(:title,:rating,:release_date)
-    @movie = Movie.create!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movie_path(@movie)
+    @movie = Movie.new(movie_params)
+    if @movie.save
+      flash[:notice] = "#{@movie.title} was successfully created."
+      redirect_to movies_path
+    else
+      render 'new' # note, 'new' template can access @movie's field values!
+    end
   end
 
   def edit
@@ -25,9 +28,12 @@ class MoviesController < ApplicationController
 
   def update
     @movie = Movie.find params[:id]
-    @movie.update_attributes!(params[:movie])
-    flash[:notice] = "#{@movie.title} was successfully updated."
-    redirect_to movie_path(@movie)
+    if @movie.update_attributes(movie_params)
+      flash[:notice] = "#{@movie.title} was successfully updated."
+      redirect_to movie_path(@movie)
+    else
+      render 'edit' # note, 'edit' template can access @movie's field values!
+    end
   end
 
   def destroy
@@ -35,6 +41,11 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
+  end
+
+  private
+  def movie_params
+    params.require(:movie).permit(:title,:rating,:release_date)
   end
 
 end
