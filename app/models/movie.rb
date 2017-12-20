@@ -1,4 +1,7 @@
 class Movie < ActiveRecord::Base
+  has_many :reviews
+  has_many :moviegoers, through: :reviews
+
   def self.all_ratings ; %w[G PG PG-13 R NC-17] ; end #  shortcut: array of strings
 
   validates :title, presence: true
@@ -7,6 +10,14 @@ class Movie < ActiveRecord::Base
   validates :rating, inclusion: {:in => Movie.all_ratings}, :unless => :grandfathered?
 
   before_save :capitalize_title
+
+  scope :with_good_reviews, lambda { |threshold|
+    Movie.joins(:reviews).group(:movie_id).
+      having(['AVG(reviews.potatoes) > ?', threshold.to_i])
+  }
+  scope :for_kids, lambda {
+    Movie.where('rating in (?)', %w(G PG))
+  }
 
   def capitalize_title
     self.title = self.title.split(/\s+/).map(&:downcase).

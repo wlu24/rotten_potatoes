@@ -1,0 +1,12 @@
+%h1 New Review for #{@movie.title}
+
+= form_tag movie_reviews_path(@movie) do
+  %label How many potatoes:
+  = select_tag 'review[potatoes]', options_for_select(1..5)
+  %br
+  %br
+  %label Comments:
+  = text_area_tag 'review[comments]', '', cols: '30', rows: '10'
+  %br
+  %br
+  = submit_tag 'Create Review'
