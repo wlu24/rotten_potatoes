@@ -9,7 +9,6 @@
       %th More Info
   %tbody
     - @movies.each do |m|
-      %tr
-        = render partial: 'movie', locals: {movie: m}
+      = render partial: 'movie', locals: {movie: m}
 
 = link_to 'Add new movie', new_movie_path

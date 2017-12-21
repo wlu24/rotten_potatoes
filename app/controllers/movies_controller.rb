@@ -9,7 +9,11 @@ class MoviesController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
-    @reviews = @movie.reviews
+
+    if request.xhr?
+      render(partial: 'movie_description_popup', object: @movie)
+    end
+    # will render app/views/movies/show.<extension> by default
   end
 
   def new
@@ -49,7 +53,7 @@ class MoviesController < ApplicationController
 
   private
   def movie_params
-    params.require(:movie).permit(:title,:rating,:release_date)
+    params.require(:movie).permit(:title, :rating, :release_date, :description)
   end
 
 end
