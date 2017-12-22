@@ -38,6 +38,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  
+  gem 'jasmine-rails', '0.14.7'
+  gem 'jasmine-jquery-rails', '2.0.3'
+  # gem 'jasmine-fixtures', '0.1.7'
 end
 
 group :development do

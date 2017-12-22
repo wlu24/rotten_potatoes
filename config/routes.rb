@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  # for testing javascript with jasmine
+  mount JasmineFixtureServer => '/spec/javascripts/fixtures' if defined?(Jasmine::Jquery::Rails::Engine)
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+
   get  'auth/:provider/callback' => 'sessions#create'
   post 'logout' => 'sessions#destroy'
   get  'auth/failure' => 'sessions#failure'
