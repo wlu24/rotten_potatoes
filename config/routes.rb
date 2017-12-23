@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post '/movies/search_tmdb'
+
   # for testing javascript with jasmine
   mount JasmineFixtureServer => '/spec/javascripts/fixtures' if defined?(Jasmine::Jquery::Rails::Engine)
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)

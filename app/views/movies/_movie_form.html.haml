@@ -14,7 +14,7 @@
 %br
 %br
 = label :movie, :release_date, 'Released On'
-= date_select :movie, :release_date
+= date_select :movie, :release_date, start_year: Date.current.year, end_year: 1920
 %br
 %br
 = label :movie, :description, 'Description'
