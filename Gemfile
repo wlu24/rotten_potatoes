@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'haml'
 gem 'omniauth-twitter'
 gem 'json'
+gem 'themoviedb'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
@@ -43,6 +44,9 @@ group :development, :test do
   gem 'jasmine-rails', '0.14.7'
   gem 'jasmine-jquery-rails', '2.0.3'
   # gem 'jasmine-fixtures', '0.1.7'
+
+  # gem 'factory_girl_rails'  # deprecated. use factory_bot_rails
+  # gem 'factory_bot_rails'
 end
 
 group :development do
@@ -59,4 +63,7 @@ group :test do
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara'         # lets Cucumber pretend to be a web browser
   gem 'launchy'          # a useful debugging aid for user stories
+
+  gem 'rspec-rails'
+  gem 'guard-rspec'
 end

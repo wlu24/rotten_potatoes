@@ -1,4 +1,5 @@
 %p= @movie.description
 
 = link_to 'Edit Movie', edit_movie_path(@movie)
-= link_to 'Close', '', {id: 'closeLink'}
+= link_to 'Details', movie_path(@movie)
+= link_to 'Close', '', id: 'closeLink'

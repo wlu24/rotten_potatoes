@@ -1,8 +1,19 @@
 class Movie < ActiveRecord::Base
+
+  class Movie::InvalidKeyError < StandardError ; end
+
   has_many :reviews
   has_many :moviegoers, through: :reviews
 
   def self.all_ratings ; %w[G PG PG-13 R NC-17] ; end #  shortcut: array of strings
+
+  def self.find_in_tmdb(string)
+    begin
+      Tmdb::Movie.find(string)
+    rescue Tmdb::InvalidApiKeyError
+      raise Movie::InvalidKeyError, 'Invalid API key'
+    end
+  end
 
   validates :title, presence: true
   validates :release_date, presence: true
@@ -33,5 +44,9 @@ class Movie < ActiveRecord::Base
 
   def grandfathered?
     release_date && release_date < @@grandfathered_date
+  end
+
+  def name_with_rating
+    "#{title} (#{rating})"
   end
 end

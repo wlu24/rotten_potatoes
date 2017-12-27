@@ -82,4 +82,13 @@
    border: 2px double grey;
    background: wheat;
  }
- 
+
+ #movieInfo > a {
+   margin-left: 10px;
+ }
+
+ .movie_review {
+   border: 1px black solid;
+   width: 35%;
+   padding-left: 10px;
+ }

@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
+    @reviews = @movie.reviews
 
     if request.xhr?
       render(partial: 'movie_description_popup', object: @movie)
@@ -52,9 +53,11 @@ class MoviesController < ApplicationController
   end
 
   def search_tmdb
-    # hardwire to simulate failure
-    flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
-    redirect_to movies_path
+    begin
+      @movies = Movie.find_in_tmdb(params[:search_terms])
+    rescue Movie::InvalidKeyError
+      @invalidKeyError = true
+    end
   end
 
   private

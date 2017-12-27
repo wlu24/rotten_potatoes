@@ -8,11 +8,15 @@ var MovieListFilter = {
     };
   },
   setup: function() {
-    // construct checkbox with label
-    var labelAndCheckbox =
-      $('<label for="filter">Only movies suitable for children</label>' +
-        '<input type="checkbox" id="filter"/>' );
-    labelAndCheckbox.insertBefore('#movies');
+
+    if($( "#filter" ).length == 0){
+      // construct checkbox with label
+      var labelAndCheckbox =
+        $('<label for="filter">Only movies suitable for children</label>' +
+          '<input type="checkbox" id="filter"/>' );
+      labelAndCheckbox.insertBefore('#movies');
+
+    }
     $('#filter').change(MovieListFilter.filter_adult);
   }
 }

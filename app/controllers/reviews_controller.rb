@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
 
   protected
   def has_moviegoer_and_movie
+    @current_user ||= Moviegoer.find_by(:id => session[:user_id])
     unless @current_user
       flash[:warning] = 'You must be logged in to create a review.'
       redirect_to '/auth/twitter'
